@@ -14,8 +14,8 @@ class Playground extends Phaser.Scene {
 
     create() {
 
-        this.spikes = this.physics.add.group();
-        this.blocks = this.physics.add.group();
+        this.spikes = this.physics.add.group({immovable: true});
+        this.blocks = this.physics.add.group({immovable: true});
 
         this.makeSpike(6,5);
         this.makeSpike(7,5);
@@ -24,6 +24,7 @@ class Playground extends Phaser.Scene {
         this.makeBlock(4,6,6,2);
         
         this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
+        this.dood.setGravityY(100);
 
         this.anims.create({
             key: 'walk',
