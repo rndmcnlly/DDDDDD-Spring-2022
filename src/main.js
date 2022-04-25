@@ -17,9 +17,12 @@ class Playground extends Phaser.Scene {
         this.spikes = this.physics.add.group();
         this.blocks = this.physics.add.group();
 
-        this.spikes.add(this.physics.add.sprite(30,0,'spike').setOrigin(0,0));
-        this.blocks.add(this.physics.add.existing(this.add.tileSprite(40,8,100,100,'block').setOrigin(0,0)));
+        this.makeSpike(6,5);
+        this.makeSpike(7,5);
 
+        this.makeBlock(0,4,4,4);
+        this.makeBlock(4,6,6,2);
+        
         this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
 
         this.anims.create({
@@ -46,6 +49,14 @@ class Playground extends Phaser.Scene {
             this.dood.setVelocityX(10);
         });
 
+    }
+
+    makeSpike(i,j) {
+        this.spikes.add(this.physics.add.sprite(8*i,8*j,'spike').setOrigin(0,0));
+    }
+
+    makeBlock(i,j,w,h) {
+        this.blocks.add(this.physics.add.existing(this.add.tileSprite(8*i,8*j,8*w,8*h,'block').setOrigin(0,0)));
     }
 }
 
