@@ -18,7 +18,7 @@ class Playground extends Phaser.Scene {
         this.blocks = this.physics.add.group();
 
         this.spikes.add(this.physics.add.sprite(30,0,'spike').setOrigin(0,0));
-        this.blocks.add(this.physics.add.sprite(40,8,'block').setOrigin(0,0));
+        this.blocks.add(this.physics.add.existing(this.add.tileSprite(40,8,100,100,'block').setOrigin(0,0)));
 
         this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
 
