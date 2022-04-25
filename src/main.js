@@ -24,7 +24,18 @@ class Playground extends Phaser.Scene {
             repeat: -1
         });
 
-        dood.anims.play('walk');
+        this.anims.create({
+            key: 'idle',
+            frames: [{key: 'dood', frame: 0}],
+        });
+
+        dood.anims.play('idle');
+
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.cursors.space.on('down', () => {
+            dood.anims.play('walk', true);
+        });
 
     }
 }
