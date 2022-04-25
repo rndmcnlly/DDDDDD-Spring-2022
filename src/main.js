@@ -13,9 +13,14 @@ class Playground extends Phaser.Scene {
     }
 
     create() {
-        let spike = this.physics.add.sprite(30,0,'spike').setOrigin(0,0);
-        let block = this.physics.add.sprite(40,8,'block').setOrigin(0,0);
-        let dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
+
+        this.spikes = this.physics.add.group();
+        this.blocks = this.physics.add.group();
+
+        this.spikes.add(this.physics.add.sprite(30,0,'spike').setOrigin(0,0));
+        this.blocks.add(this.physics.add.sprite(40,8,'block').setOrigin(0,0));
+
+        this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
 
         this.anims.create({
             key: 'walk',
@@ -29,16 +34,16 @@ class Playground extends Phaser.Scene {
             frames: [{key: 'dood', frame: 0}],
         });
 
-        dood.anims.play('idle');
+        this.dood.anims.play('idle');
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.physics.add.collider(dood, block);
-        this.physics.add.collider(dood, spike);
+        this.physics.add.collider(this.dood, this.blocks);
+        this.physics.add.collider(this.dood, this.spikes);
         
         this.cursors.space.on('down', () => {
-            dood.anims.play('walk', true);
-            dood.setVelocityX(10);
+            this.dood.anims.play('walk', true);
+            this.dood.setVelocityX(10);
         });
 
     }
