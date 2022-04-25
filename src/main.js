@@ -13,9 +13,9 @@ class Playground extends Phaser.Scene {
     }
 
     create() {
-        this.add.sprite(0,0,'spike').setOrigin(0,0);
-        this.add.sprite(0,8,'block').setOrigin(0,0);
-        let dood = this.add.sprite(8,0,'dood').setOrigin(0,0);
+        let spike = this.physics.add.sprite(30,0,'spike').setOrigin(0,0);
+        let block = this.physics.add.sprite(40,8,'block').setOrigin(0,0);
+        let dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
 
         this.anims.create({
             key: 'walk',
@@ -33,8 +33,12 @@ class Playground extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
+        this.physics.add.collider(dood, block);
+        this.physics.add.collider(dood, spike);
+        
         this.cursors.space.on('down', () => {
             dood.anims.play('walk', true);
+            dood.setVelocityX(10);
         });
 
     }
@@ -44,5 +48,11 @@ let game = new Phaser.Game({
     width: 80,
     height: 60,
     zoom: 4,
-    scene: [Playground]
+    scene: [Playground],
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true
+        }
+    }
 });
