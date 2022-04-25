@@ -47,21 +47,22 @@ class Playground extends Phaser.Scene {
         this.physics.add.collider(this.dood, this.blocks);
         this.physics.add.collider(this.dood, this.spikes);
         
-        this.cursors.right.on('down', () => {
-            this.dood.anims.play('walk', true);
-            this.dood.setVelocityX(10);
-        });
+        this.cursors.left.on('down', () => this.walk(-1));
+        this.cursors.right.on('down', () => this.walk(+1));
+    }
+
+    walk(sign) {
+        this.dood.anims.play('walk', true);
+        this.dood.setVelocityX(sign*40);
     }
 
     update() {
         if(!this.inverted && !this.dood.body.touching.down) {
-            this.dood.setGravityY(1e-9);
-            this.dood.setVelocityY(40); 
+            this.fall(+1);
         }
 
         if(this.inverted && !this.dood.body.touching.up) {
-            this.dood.setGravityY(-1e-9);
-            this.dood.setVelocityY(-40); 
+            this.fall(-1);
         }
         
         if(!this.dood.body.touching.none) {
@@ -69,6 +70,11 @@ class Playground extends Phaser.Scene {
                 this.inverted = !this.inverted;
             }
         }
+    }
+
+    fall(sign) {
+        this.dood.setGravityY(sign*1e-9);
+        this.dood.setVelocityY(sign*40);
     }
 
     makeSpike(i,j) {
