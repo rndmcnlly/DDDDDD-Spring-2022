@@ -15,7 +15,17 @@ class Playground extends Phaser.Scene {
     create() {
         this.add.sprite(0,0,'spike').setOrigin(0,0);
         this.add.sprite(0,8,'block').setOrigin(0,0);
-        this.add.sprite(8,0,'dood').setOrigin(0,0);
+        let dood = this.add.sprite(8,0,'dood').setOrigin(0,0);
+
+        this.anims.create({
+            key: 'walk',
+            frames: 'dood',
+            frameRate: 10,
+            repeat: -1
+        });
+
+        dood.anims.play('walk');
+
     }
 }
 
