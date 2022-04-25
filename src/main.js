@@ -24,6 +24,7 @@ class Playground extends Phaser.Scene {
         this.makeBlock(4,6,6,2);
         
         this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
+        this.inverted = false;
         this.dood.setGravityY(1);
         this.dood.setVelocityY(40);
 
@@ -46,16 +47,27 @@ class Playground extends Phaser.Scene {
         this.physics.add.collider(this.dood, this.blocks);
         this.physics.add.collider(this.dood, this.spikes);
         
-        this.cursors.space.on('down', () => {
+        this.cursors.right.on('down', () => {
             this.dood.anims.play('walk', true);
             this.dood.setVelocityX(10);
         });
     }
 
     update() {
-        if(!this.dood.body.touching.down) {
+        if(!this.inverted && !this.dood.body.touching.down) {
             this.dood.setGravityY(1e-9);
             this.dood.setVelocityY(40); 
+        }
+
+        if(this.inverted && !this.dood.body.touching.up) {
+            this.dood.setGravityY(-1e-9);
+            this.dood.setVelocityY(-40); 
+        }
+        
+        if(!this.dood.body.touching.none) {
+            if(Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+                this.inverted = !this.inverted;
+            }
         }
     }
 
