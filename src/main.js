@@ -17,11 +17,13 @@ class Playground extends Phaser.Scene {
         this.spikes = this.physics.add.group({immovable: true});
         this.blocks = this.physics.add.group({immovable: true});
 
-        this.makeSpike(6,5);
-        this.makeSpike(7,5);
+        this.makeSpike(6,6);
+        this.makeSpike(7,6);
 
-        this.makeBlock(0,4,4,4);
-        this.makeBlock(4,6,6,2);
+        this.makeBlock(0,0,10,1);
+        this.makeBlock(0,5,4,3);
+        this.makeBlock(4,7,6,1);
+        
         
         this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
         this.inverted = false;
