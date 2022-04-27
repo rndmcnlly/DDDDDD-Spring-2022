@@ -51,11 +51,19 @@ class Playground extends Phaser.Scene {
         
         this.cursors.left.on('down', () => this.walk(-1));
         this.cursors.right.on('down', () => this.walk(+1));
+
+        this.cursors.left.on('up', () => this.stop());
+        this.cursors.right.on('up', () => this.stop());
     }
 
     walk(sign) {
         this.dood.anims.play('walk', true);
         this.dood.setVelocityX(sign*40);
+    }
+
+    stop() {
+        this.dood.anims.play('idle');
+        this.dood.setVelocityX(0);
     }
 
     update() {
@@ -77,6 +85,7 @@ class Playground extends Phaser.Scene {
     fall(sign) {
         this.dood.setGravityY(sign*1e-9);
         this.dood.setVelocityY(sign*40);
+        this.dood.flipY = this.inverted;
     }
 
     makeSpike(i,j) {
