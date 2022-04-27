@@ -10,6 +10,7 @@ class Playground extends Phaser.Scene {
             frameWidth: 10,
             frameHeight: 16
         });
+        this.load.image('ded', 'assets/ded.png');
     }
 
     create() {
@@ -42,12 +43,30 @@ class Playground extends Phaser.Scene {
             frames: [{key: 'dood', frame: 0}],
         });
 
+        this.anims.create({
+            key: 'dead',
+            frames: [{key: 'ded', frame: 0}],
+        });
+
         this.dood.anims.play('idle');
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.physics.add.collider(this.dood, this.blocks);
-        this.physics.add.collider(this.dood, this.spikes);
+        this.physics.add.overlap(this.dood, this.spikes, (d,s) => {
+            this.dood.setTint(0xFF0000);
+            s.setTint(0xFF0000);
+            this.stop();
+            d.anims.play('dead');
+
+            this.tweens.add({
+                targets: this.dood,
+                alpha: 0,
+                duration: 250
+            });
+
+            this.time.delayedCall(500, () => this.scene.restart());
+        });
         
         this.cursors.left.on('down', () => this.walk(-1));
         this.cursors.right.on('down', () => this.walk(+1));
@@ -105,7 +124,7 @@ let game = new Phaser.Game({
     physics: {
         default: 'arcade',
         arcade: {
-            debug: true
+            debug: false
         }
     }
 });
