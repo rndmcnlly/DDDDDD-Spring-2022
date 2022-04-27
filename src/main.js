@@ -26,7 +26,7 @@ class Playground extends Phaser.Scene {
         this.makeBlock(4,7,6,1);
         
         
-        this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0);
+        this.dood = this.physics.add.sprite(8,0,'dood').setOrigin(0,0).setCollideWorldBounds();
         this.inverted = false;
         this.dood.setGravityY(1);
         this.dood.setVelocityY(40);
